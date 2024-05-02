@@ -37,7 +37,7 @@ const File = ({route, navigation}) => {
 
     fetchChildren();
     handleSortOptionChange('title');
-  }, [sortOption, folderId]);
+  }, [folderId]);
 
   const handlePathClick = () => {
     if (path.length >= 1) {
