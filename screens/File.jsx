@@ -68,7 +68,7 @@ const File = ({route, navigation}) => {
             onDismiss={() => setIsExpanded(false)}
             anchor={
               <TouchableOpacity onPress={() => setIsExpanded(!isExpanded)}>
-                <Text style={styles.menuButtonText}>Sort By: {sortOption}</Text>
+                <Text>Sort By: {sortOption}</Text>
               </TouchableOpacity>
             }>
             <Menu.Item
