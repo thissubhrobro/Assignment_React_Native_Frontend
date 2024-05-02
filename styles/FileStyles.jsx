@@ -16,4 +16,8 @@ export const styles = StyleSheet.create({
     paddingLeft: 20,
     marginTop: 10,
   },
+  menuContainer: {
+    marginTop: 10,
+    paddingLeft: 20,
+  },
 });

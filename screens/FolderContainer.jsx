@@ -3,24 +3,25 @@ import React, {useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {styles} from '../styles/FileContainerStyles';
 
-const FolderContainer = ({details, navigation, currentPath = ['Home']}) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const FolderContainer = ({
+  fileContents,
+  details,
+  navigation,
+  currentPath = ['Home'],
+}) => {
   const [noChildrenMessage, setNoChildrenMessage] = useState('');
   const [lastPressTime, setLastPressTime] = useState(0);
-  const DOUBLE_CLICK_DELAY = 300;
+  const DOUBLE_CLICK_DELAY = 200;
 
   const handlePress = () => {
     const currentTime = Date.now();
-
     if (currentTime - lastPressTime < DOUBLE_CLICK_DELAY) {
       handleDoubleClick();
     }
-
     setLastPressTime(currentTime);
   };
 
   const handleDoubleClick = () => {
-    setIsExpanded(!isExpanded);
     let newPath = [];
     if (details.children && details.children.length > 0) {
       if (!currentPath.includes(details.title)) {
@@ -28,10 +29,29 @@ const FolderContainer = ({details, navigation, currentPath = ['Home']}) => {
       } else {
         newPath = [...currentPath];
       }
-      navigation.navigate('File', {folderId: details.file_id, path: newPath});
+      navigation.navigate('File', {
+        fileContents,
+        folderId: details.file_id,
+        path: newPath,
+      });
     } else {
       setNoChildrenMessage('No child contents found');
     }
+  };
+
+  const convertDate = dateString => {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear().toString().slice(-2);
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    const formattedDate = `${day}-${month}-${year}`;
+    const formattedTime = `${hours}:${minutes}`;
+
+    return `${formattedDate} ${formattedTime}`;
   };
 
   return (
@@ -54,6 +74,9 @@ const FolderContainer = ({details, navigation, currentPath = ['Home']}) => {
           </Text>
           <Text variant="labelSmall" style={styles.textContent}>
             {details.title}
+          </Text>
+          <Text variant="labelSmall" style={styles.textContent}>
+            {convertDate(details.created_on)}
           </Text>
         </View>
       </TouchableOpacity>

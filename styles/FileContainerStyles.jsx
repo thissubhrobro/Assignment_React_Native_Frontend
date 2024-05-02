@@ -12,12 +12,12 @@ export const styles = StyleSheet.create({
   },
   textContent: {
     marginTop: 5,
-    width: 100,
+    width: 90,
     overflow: 'hidden',
   },
   image: {
-    width: 30, // Width of the image
-    height: 30, // Height of the image
+    width: 30,
+    height: 30,
     marginBottom: 5,
   },
   nestedContainer: {

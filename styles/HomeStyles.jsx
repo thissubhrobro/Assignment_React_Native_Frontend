@@ -12,4 +12,8 @@ export const styles = StyleSheet.create({
     padding: 4,
     overflow: 'auto',
   },
+  menuContainer: {
+    marginTop: 10,
+    paddingLeft: 10,
+  },
 });

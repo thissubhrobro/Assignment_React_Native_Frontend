@@ -113,3 +113,27 @@ export const inputArray = [
       'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque commodo tellus in massa gravida, sed egestas nulla accumsan.',
   },
 ];
+
+export const convertArray = () => {
+  const filesByParent = {};
+  inputArray.forEach(file => {
+    if (!filesByParent[file.parent_id]) {
+      filesByParent[file.parent_id] = [];
+    }
+    filesByParent[file.parent_id].push(file);
+  });
+  function buildTree(parentId) {
+    if (!filesByParent[parentId]) {
+      return [];
+    }
+    return filesByParent[parentId].map(file => {
+      const children = buildTree(file.file_id);
+      if (children.length > 0) {
+        file.children = children;
+      }
+      return file;
+    });
+  }
+
+  return buildTree(0);
+};
